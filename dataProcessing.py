@@ -62,14 +62,14 @@ def plot_corr_clustering(df,size,n):
         string = 'S' + str(i+1)
         while j < (len(correlations[string])):
             if numpy.isnan(correlations[string][j]):
-                if i == j:
+                if (i+1) == int(correlations.columns[j][1]):
                     value = 1
                 else:
                     value = 0    
                 correlations[string][j] = value
             j += 1
         i += 1
-    
+        
     # Plot the correlation matrix
     fig, ax = plt.subplots(figsize=(size, size))
     cax = ax.matshow(correlations, cmap='RdYlGn')
