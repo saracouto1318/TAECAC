@@ -3,7 +3,6 @@ import numpy
 import matplotlib.pyplot as plt
 import os, os.path
 import scipy
-import scipy.cluster.hierarchy as sch
 import pylab
 from scipy.cluster.hierarchy import dendrogram, linkage
 
@@ -52,5 +51,5 @@ while n <= numFiles:
     )
     pylab.yticks(fontsize=ticksize)
     pylab.xticks(rotation=-90, fontsize=ticksize)
-    plt.savefig('Dendogram/dendogram_'+index+'.png')
+    plt.savefig('Dendrogram/dendrogram_'+index+'.png')
     n += 1
