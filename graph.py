@@ -1,7 +1,14 @@
-import pandas as pd
+import pandas
 import os, os.path
+import numpy as np
 import csv
 import sympy
+from sklearn.decomposition import PCA
+import itertools
+import copy
+import networkx as nx
+import matplotlib.pyplot as plt
+import re 
 
 DIR = 'Datasets'
 numFiles = len([name for name in os.listdir(DIR) if os.path.isfile(os.path.join(DIR, name))]) - 1
@@ -15,32 +22,39 @@ while n <= numFiles:
     pima.drop(['Classes', 'SMELLS', 'HASS','CHANGES', 'HASC'], axis = 1, inplace = True)  
 
     array = []
-    i = 0
-
+    connected = []
     totalValue = len(pima.S1)
-
-while i < (len(col_names)-5):
-    counter = totalValue
-    j = 0
-    string = 'S' + str(i+1) 
-    while j < (len(col_names)-5):
-        stringNew = 'S' + str(j+1)
-        if i == j:
-            array.append(0)
-        else:       
-            if pima[stringNew][j] == 1 and pima[string][j] == 1:
-                counter -= 1  
-            array.append(counter)   
-        j += 1
-    i += 1  
-        
     i = 0
-    start = 1
-    end = 10
-    width = end - start
+    
+    while i < (len(col_names)-5):
+        counter = totalValue
+        j = 0
+        string = 'S' + str(i+1) 
+        listConnected = []
+        while j < (len(col_names)-5):
+            stringNew = 'S' + str(j+1)
+            if i == j:
+                array.append(0)
+            else:       
+                if pima[stringNew][j] == 1 and pima[string][j] == 1:
+                    counter -= 1  
+                    temp = re.findall(r'\d+', stringNew) 
+                    res = list(map(int, temp)) 
+                    listConnected.append(res[0])
+                array.append(counter)       
+            j += 1
+        connected.append(listConnected)    
+        i += 1  
+          
+    i = 0
+    lengthNumber = len(str(max(array)))
+                          
     while i < len(array):
-        if array[i] != 0:
-            array[i] = (array[i] - min(array))/(max(array) - min(array)) * width + start
+        if lengthNumber > 3:
+            array[i] = array[i] / 1000.0
+        else:
+            if lengthNumber == 2:
+                array[i] = array[i] / 100.0   
         i += 1
         
     matrix = []
@@ -52,35 +66,25 @@ while i < (len(col_names)-5):
         
     distances = np.array(matrix)
 
-    n = len(distances)
-    X = sympy.symarray('x', (n, n - 1))
-
-    for row in range(n):
-        X[row, row:] = [0] * (n - 1 - row)
-
-    for point2 in range(1, n):
-
-        expressions = []
-
-        for point1 in range(point2):
-            expression = np.sum((X[point1] - X[point2]) ** 2) 
-            expression -= distances[point1,point2] ** 2
-            expressions.append(expression)
-
-        X[point2,:point2] = sympy.solve(expressions, list(X[point2,:point2]))[1]
+    X = distances
+    pca = PCA(n_components=2)
+    X2d = pca.fit_transform(X)
     
-    newFileName = "DistancesProcessing/Smells-Distances" + str(n) + ".csv"            
-    with open(newFileName, 'wb') as csvfile:
-        filewriter = csv.writer(csvfile, delimiter=',',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        filewriter.writerow(['Code Smell', 'X', 'Y'])
-        i = 0
-        while i < (len(col_names)-5):
-            string = 'S' + str(i+1) 
-            filewriter.writerow([string, X[i][0], X[i][1])
-            i += 1
-            
-    # read csv
-    # create graph        
+    nodes = []
+    i = 0
+    while i < (len(col_names)-5):
+        string = 'S' + str(i+1) 
+        nodes.append([string, X2d[i][0], X2d[i][1], connected[i]])
+        i += 1
+    
+    print(nodes)
+    # create graph    
+    
+    G = nx.Graph()
+    G.add_edge(1,2)
+    G.add_edge(1,3)
+    nx.draw(G, with_labels=True)
+    #plt.show()
     
     n += 1        
+    
