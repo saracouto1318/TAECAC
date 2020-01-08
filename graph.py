@@ -1,16 +1,10 @@
 import pandas
 import os, os.path
-import numpy as np
-import csv
-import sympy
-from sklearn.decomposition import PCA
-import itertools
-import copy
-import networkx as nx
-import matplotlib.pyplot as plt
 import re 
+import numpy as np
+import networkx as nx
 import plotly.graph_objects as go
-from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+from sklearn.decomposition import PCA
 
 DIR = 'Datasets'
 numFiles = len([name for name in os.listdir(DIR) if os.path.isfile(os.path.join(DIR, name))]) - 1
