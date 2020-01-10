@@ -51,5 +51,5 @@ while n <= numFiles:
     )
     pylab.yticks(fontsize=ticksize)
     pylab.xticks(rotation=-90, fontsize=ticksize)
-    plt.savefig('Dendrogram/dendrogram_'+index+'.png')
+    plt.savefig('Results/Dendrogram/dendrogram_'+index+'.png')
     n += 1

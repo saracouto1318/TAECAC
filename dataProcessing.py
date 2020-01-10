@@ -37,7 +37,7 @@ def plot_corr(df,size,n):
     
     # Add the colorbar legend
     cbar = fig.colorbar(cax, ticks=[-1, 0, 1], aspect=40, shrink=.8)
-    plt.savefig('Correlation/correlation'+str(n)+'.png')
+    plt.savefig('Results/Correlation/correlation'+str(n)+'.png')
     
     newFileName = "Processing/Smells" + str(n) + ".csv"
     with open(newFileName, 'wb') as csvfile:
@@ -78,7 +78,7 @@ def plot_corr_clustering(df,size,n):
     
     # Add the colorbar legend
     cbar = fig.colorbar(cax, ticks=[-1, 0, 1], aspect=40, shrink=.8)
-    plt.savefig('CorrelationClustering/clustering'+str(n)+'.png')
+    plt.savefig('Resulst/CorrelationClustering/clustering'+str(n)+'.png')
 
 n = 1
 while n <= numFiles:

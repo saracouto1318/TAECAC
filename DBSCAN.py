@@ -70,5 +70,5 @@ while n <= numFiles:
     
     
     plt.tight_layout() 
-    plt.savefig('DBSCAN/dbscan'+str(n)+'.png')
+    plt.savefig('Results/DBSCAN/dbscan'+str(n)+'.png')
     n += 1
