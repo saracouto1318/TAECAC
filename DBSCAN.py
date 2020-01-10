@@ -53,27 +53,15 @@ while n <= numFiles:
     labels = optics_model.labels_[optics_model.ordering_] 
 
     # Defining the framework of the visualization 
-    plt.figure(figsize =(10, 4)) 
-    G = gridspec.GridSpec(1, 2) 
-    ax2 = plt.subplot(G[0, 0]) 
-    ax4 = plt.subplot(G[0, 1]) 
-    
-    # Plotting the OPTICS Clustering 
-    colors = ['c.', 'b.', 'r.', 'y.', 'g.'] 
-    for Class, colour in zip(range(0, 5), colors): 
-        Xk = X_normalized[optics_model.labels_ == Class] 
-        ax2.plot(Xk.iloc[:, 0], Xk.iloc[:, 1], colour, alpha = 0.3) 
-        
-    ax2.plot(X_normalized.iloc[optics_model.labels_ == -1, 0], 
-            X_normalized.iloc[optics_model.labels_ == -1, 1], 
-        'k+', alpha = 0.1) 
-    ax2.set_title('OPTICS Clustering') 
+    plt.figure(figsize =(4, 4)) 
+    G = gridspec.GridSpec(1, 1) 
+    ax4 = plt.subplot(G[0, 0]) 
     
     # Plotting the DBSCAN Clustering with eps = 2.0 
     colors = ['c.', 'y.', 'm.', 'g.'] 
     for Class, colour in zip(range(0, 4), colors): 
         Xk = X_normalized.iloc[labels2 == Class] 
-        ax4.plot(Xk.iloc[:, 0], Xk.iloc[:, 1], colour, alpha = 0.3) 
+        ax4.plot(Xk.iloc[:, 0], Xk.iloc[:, 1], colour, alpha = 0.3)
             
     ax4.plot(X_normalized.iloc[labels2 == -1, 0], 
             X_normalized.iloc[labels2 == -1, 1], 
@@ -82,5 +70,5 @@ while n <= numFiles:
     
     
     plt.tight_layout() 
-    plt.savefig('DBSCAN_OPTICS/comparison'+str(n)+'.png')
+    plt.savefig('DBSCAN/dbscan'+str(n)+'.png')
     n += 1
