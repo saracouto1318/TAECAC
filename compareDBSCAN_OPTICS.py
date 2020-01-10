@@ -36,11 +36,6 @@ while n <= numFiles:
     
     # Training the model 
     optics_model.fit(X_normalized)
-
-    # Producing the labels according to the DBSCAN technique with eps = 0.5 
-    labels1 = cluster_optics_dbscan(reachability = optics_model.reachability_, 
-                                    core_distances = optics_model.core_distances_, 
-                                    ordering = optics_model.ordering_, eps = 0.5) 
     
     # Producing the labels according to the DBSCAN technique with eps = 2.0 
     labels2 = cluster_optics_dbscan(reachability = optics_model.reachability_, 
@@ -58,24 +53,10 @@ while n <= numFiles:
     labels = optics_model.labels_[optics_model.ordering_] 
 
     # Defining the framework of the visualization 
-    plt.figure(figsize =(10, 7)) 
-    G = gridspec.GridSpec(2, 3) 
-    ax1 = plt.subplot(G[0, :]) 
-    ax2 = plt.subplot(G[1, 0]) 
-    ax3 = plt.subplot(G[1, 1]) 
-    ax4 = plt.subplot(G[1, 2]) 
-    
-    # Plotting the Reachability-Distance Plot 
-    colors = ['c.', 'b.', 'r.', 'y.', 'g.'] 
-    for Class, colour in zip(range(0, 5), colors): 
-        Xk = space[labels == Class] 
-        Rk = reachability[labels == Class] 
-        ax1.plot(Xk, Rk, colour, alpha = 0.3) 
-    ax1.plot(space[labels == -1], reachability[labels == -1], 'k.', alpha = 0.3) 
-    ax1.plot(space, np.full_like(space, 2., dtype = float), 'k-', alpha = 0.5) 
-    ax1.plot(space, np.full_like(space, 0.5, dtype = float), 'k-.', alpha = 0.5) 
-    ax1.set_ylabel('Reachability Distance') 
-    ax1.set_title('Reachability Plot') 
+    plt.figure(figsize =(10, 4)) 
+    G = gridspec.GridSpec(1, 2) 
+    ax2 = plt.subplot(G[0, 0]) 
+    ax4 = plt.subplot(G[0, 1]) 
     
     # Plotting the OPTICS Clustering 
     colors = ['c.', 'b.', 'r.', 'y.', 'g.'] 
@@ -87,17 +68,6 @@ while n <= numFiles:
             X_normalized.iloc[optics_model.labels_ == -1, 1], 
         'k+', alpha = 0.1) 
     ax2.set_title('OPTICS Clustering') 
-    
-    # Plotting the DBSCAN Clustering with eps = 0.5 
-    colors = ['c', 'b', 'r', 'y', 'g', 'greenyellow'] 
-    for Class, colour in zip(range(0, 6), colors): 
-        Xk = X_normalized[labels1 == Class] 
-        ax3.plot(Xk.iloc[:, 0], Xk.iloc[:, 1], colour, alpha = 0.3, marker ='.') 
-            
-    ax3.plot(X_normalized.iloc[labels1 == -1, 0], 
-            X_normalized.iloc[labels1 == -1, 1], 
-        'k+', alpha = 0.1) 
-    ax3.set_title('DBSCAN clustering with eps = 0.5') 
     
     # Plotting the DBSCAN Clustering with eps = 2.0 
     colors = ['c.', 'y.', 'm.', 'g.'] 
