@@ -101,7 +101,6 @@ while n <= numFiles:
         node_x.append(x)
         node_y.append(y)
 
-    labels = ["oi1","oi2","oi3","oi4","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi","oi"]
     node_trace = go.Scatter(
         x=node_x, y=node_y,
         mode='markers',
