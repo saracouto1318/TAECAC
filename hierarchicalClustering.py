@@ -49,6 +49,7 @@ while n <= numFiles:
         leaf_font_size=8.,  # font size for the x axis labels
         labels = corr.columns
     )
+    plt.axhline(y=1, color='r', linestyle='--')
     pylab.yticks(fontsize=ticksize)
     pylab.xticks(rotation=-90, fontsize=ticksize)
     plt.savefig('Results/Dendrogram/dendrogram_'+index+'.png')
