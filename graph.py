@@ -53,15 +53,13 @@ while n <= numFiles:
 
     X = distances
     pca = PCA(n_components=2)
-    X2d = pca.fit_transform(X)
-    
+    X2d = pca.fit_transform(X)  
+        
     nodes = []
     i = 0
-    txt = []
     while i < (len(col_names)-5):
         string = 'S' + str(i+1) 
         nodes.append([string, X2d[i][0], X2d[i][1], connected[i]])
-        txt.append(string)
         i += 1
 
     # create graph    
@@ -169,7 +167,7 @@ while n <= numFiles:
     )) 
        
     fig.update_layout(showlegend=False)
-    fig.show()
+    #fig.show()
     
     n += 1        
     
