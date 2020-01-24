@@ -57,9 +57,11 @@ while n <= numFiles:
     
     nodes = []
     i = 0
+    txt = []
     while i < (len(col_names)-5):
         string = 'S' + str(i+1) 
         nodes.append([string, X2d[i][0], X2d[i][1], connected[i]])
+        txt.append(string)
         i += 1
 
     # create graph    
@@ -87,7 +89,7 @@ while n <= numFiles:
         edge_y.append(y0)
         edge_y.append(y1)
         edge_y.append(None)
-
+        
     edge_trace = go.Scatter(
         x=edge_x, y=edge_y,
         line=dict(width=0.5, color='#888'),
@@ -122,13 +124,13 @@ while n <= numFiles:
                 titleside='right'
             ),
             line_width=2),
-        hoverinfo='text')    
+        hoverinfo='text')   
         
     node_adjacencies = []
     node_text = []
     for node, adjacencies in enumerate(G.adjacency()):
         node_adjacencies.append(len(adjacencies[1]))
-        node_text.append(' S' + str(node) + '  # of connections: ' + str(len(adjacencies[1])))
+        node_text.append('# of connections: ' + str(len(adjacencies[1])))
 
     node_trace.marker.color = node_adjacencies
     node_trace.text = node_text
@@ -146,6 +148,28 @@ while n <= numFiles:
     
     fig.update_traces(textposition='top center')
     
+    i = 0
+    while i < len(nodes):
+        fig.add_annotation(
+            go.layout.Annotation(
+                    x=nodes[i][1],
+                    y=nodes[i][2],
+                    text=nodes[i][0])
+        )
+        
+        i += 1
+        
+    fig.update_annotations(dict(
+        xref="x",
+        yref="y",
+        showarrow=True,
+        arrowhead=False,
+        ax=0,
+        ay=-40
+    )) 
+       
+    fig.update_layout(showlegend=False)
     fig.show()
+    
     n += 1        
     

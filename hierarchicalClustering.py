@@ -35,7 +35,7 @@ while n <= numFiles:
     
     corr = correlations
 
-    Z = linkage(corr, 'average')
+    Z = linkage(corr, 'ward')
     plt.figure(figsize=(25, 10))
     labelsize=20
     ticksize=15
