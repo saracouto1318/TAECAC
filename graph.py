@@ -167,7 +167,7 @@ while n <= numFiles:
     )) 
        
     fig.update_layout(showlegend=False)
-    #fig.show()
+    fig.show()
     
     n += 1        
     
