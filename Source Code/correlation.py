@@ -5,7 +5,7 @@ import csv
 import pandas
 import scipy.cluster.hierarchy as sch
 
-DIR = 'Datasets'
+DIR = '../Datasets'
 numFiles = len([name for name in os.listdir(DIR) if os.path.isfile(os.path.join(DIR, name))]) - 1
 correlations = []
 
@@ -37,9 +37,9 @@ def plot_corr(df,size,n):
     
     # Add the colorbar legend
     cbar = fig.colorbar(cax, ticks=[-1, 0, 1], aspect=40, shrink=.8)
-    plt.savefig('Results/Correlation/correlation'+str(n)+'.png')
+    plt.savefig('../Results/Correlation/correlation'+str(n)+'.png')
     
-    newFileName = "Processing/Smells" + str(n) + ".csv"
+    newFileName = "../Processing/Smells" + str(n) + ".csv"
     with open(newFileName, 'wb') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=',',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -78,7 +78,7 @@ def plot_corr_clustering(df,size,n):
     
     # Add the colorbar legend
     cbar = fig.colorbar(cax, ticks=[-1, 0, 1], aspect=40, shrink=.8)
-    plt.savefig('Results/CorrelationClustering/clustering'+str(n)+'.png')
+    plt.savefig('../Results/CorrelationClustering/clustering'+str(n)+'.png')
 
 n = 1
 while n <= numFiles:
