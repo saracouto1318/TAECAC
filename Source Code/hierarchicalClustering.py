@@ -52,5 +52,5 @@ while n <= numFiles:
     plt.axhline(y=1, color='r', linestyle='--')
     pylab.yticks(fontsize=ticksize)
     pylab.xticks(rotation=-90, fontsize=ticksize)
-    plt.savefig('Results/Dendrogram/dendrogram_'+index+'.png')
+    plt.savefig('Results/HierarchicalClustering/dendrogram_'+index+'.png')
     n += 1
